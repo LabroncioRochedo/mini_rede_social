@@ -3,7 +3,7 @@ from database.connection import Base
 from sqlalchemy.orm import relationship
 import datetime
 
-class Friend_request(Base):
+class FriendRequest(Base):
 
     __tablename__ = "friend_request"
 

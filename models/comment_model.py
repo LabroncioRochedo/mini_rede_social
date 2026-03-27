@@ -8,7 +8,7 @@ class Comment(Base):
     __tablename__ = "comment"
 
     id = Column(Integer, primary_key=True)
-    global_chat_id = Column(Integer, ForeignKey("global_chat.id"))
+    global_chat_id = Column(Integer, ForeignKey("global_chat.id", ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey("usuarios.id"))
     conteudo = Column(String)
     data_de_envio = Column(DateTime, default=datetime.datetime.utcnow)

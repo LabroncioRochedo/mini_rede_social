@@ -10,9 +10,9 @@ class Usuario(Base):
     nome = Column(String, unique=True)
     senha = Column(String)
 
-    private_chat = relationship("Private_chat", back_populates="user")
-    global_chat = relationship("Global_chat", back_populates="user")
+    private_chat = relationship("PrivateChat", back_populates="user")
+    global_chat = relationship("GlobalChat", back_populates="user")
     like = relationship("Like", back_populates="user")
     comment = relationship("Comment", back_populates="user")
-    friend_request = relationship("Friend_request", back_populates="user")
+    friend_request = relationship("FriendRequest", back_populates="user")
     friend = relationship("Friend", back_populates="user")

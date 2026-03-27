@@ -3,7 +3,7 @@ from database.connection import Base
 from sqlalchemy.orm import relationship
 import datetime
 
-class Private_chat(Base):
+class PrivateChat(Base):
 
     __tablename__ = "private_chat"
 

@@ -7,7 +7,7 @@ class Like(Base):
     __tablename__ = "likes"
 
     id = Column(Integer, primary_key=True)
-    global_chat_id = Column(Integer, ForeignKey("global_chat.id"))
+    global_chat_id = Column(Integer, ForeignKey("global_chat.id", ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey("usuarios.id"))
 
     global_chat = relationship("Global_chat", back_populates="like")
