@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from database.connection import get_db
 from security.tokens import checar_token
-from schemas.global_chat_schemas import GlobalChatCreat,GlobalChatDelete
+from projeto_mini_rede_social.schemas.global_chat_schemas import GlobalChatCreat,GlobalChatDelete
 from services.global_chat_services import criar_post,listar_posts,deletar_post
 
 router = APIRouter(prefix="/global_chat",dependencies=[Depends(checar_token)])
