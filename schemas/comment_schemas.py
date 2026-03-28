@@ -6,3 +6,6 @@ class EnviarComentario(BaseModel):
 
 class DeletarComentario(BaseModel):
     post_id: int
+
+class ListarComentarios(BaseModel):
+    post_id: int
