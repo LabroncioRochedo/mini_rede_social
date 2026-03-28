@@ -12,4 +12,5 @@ class FriendRequest(Base):
     destinatario_id = Column(Integer, ForeignKey("usuarios.id"))
     data_de_envio = Column(DateTime, default=datetime.datetime.utcnow)
 
-    user = relationship("Usuario", back_populates="friend_request")
+    remetente = relationship("Usuario",foreign_keys=[remetente_id],back_populates="requests_enviados")
+    destinatario = relationship("Usuario",foreign_keys=[destinatario_id],back_populates="requests_recebidos")

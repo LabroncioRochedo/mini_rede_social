@@ -8,7 +8,15 @@ def achar_usuario(nome,db):
     if not nomes:
         raise HTTPException(status_code=404,detail="usuario nao encontrado")
     
-    return nomes
+    lista_nomes = []
+
+    for a in nomes:
+        lista_nomes.append(
+            {"id": a.id,
+            "nome": a.nome}
+        )
+
+    return lista_nomes
 
 def ver_post_do_usuario(user_id,db):
 
@@ -20,6 +28,6 @@ def ver_post_do_usuario(user_id,db):
     posts = db.query(GlobalChat).filter(GlobalChat.user_id == user_id.user_id).all()
 
     if not posts:
-        return {"msg":"nenhum usuario encontrado"}
+        return {"msg":"nenhum post encontrado"}
     
     return posts

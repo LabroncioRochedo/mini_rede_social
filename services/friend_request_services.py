@@ -2,6 +2,7 @@ from models.friend_request_model import FriendRequest
 from models.user_model import Usuario
 from models.friend_model import Friend
 from fastapi import HTTPException
+from sqlalchemy import or_,and_
 
 def enviar_pedido(destinatario_id,remetente_id,db):
 
@@ -9,6 +10,11 @@ def enviar_pedido(destinatario_id,remetente_id,db):
 
     if not verificar_usuario:
         raise HTTPException(status_code=404,detail="usuario nao encontrado")
+    
+    verificar_pedido = db.query(FriendRequest).filter(or_(and_(FriendRequest.remetente_id == remetente_id,FriendRequest.destinatario_id == destinatario_id.destinatario_id),and_(FriendRequest.destinatario_id == remetente_id,FriendRequest.remetente_id == destinatario_id.destinatario_id))).first()
+
+    if verificar_pedido:
+        return {"msg":"pedido ja enviado"}
     
     novo_pedido = FriendRequest(
         remetente_id=remetente_id,
@@ -22,7 +28,7 @@ def enviar_pedido(destinatario_id,remetente_id,db):
 
 def responder_pedido(conteudo,destinatario_id,db):
 
-    pedido = db.query(FriendRequest).filter(FriendRequest.id == conteudo.id,FriendRequest.destinatario_id == destinatario_id).first()
+    pedido = db.query(FriendRequest).filter(FriendRequest.id == conteudo.pedido_id,FriendRequest.destinatario_id == destinatario_id).first()
 
     if not pedido:
         raise HTTPException(status_code=404,detail="pedido nao encontrado")
@@ -57,15 +63,15 @@ def ver_pedidos_enviados(remetente_id,db):
 
     for pedido in pedidos:
         lista_pedidos.append(
-            {"id": pedido.destinatario_id},
-            {"nome": pedido.user.nome}
+            {"id": pedido.id,
+            "nome": pedido.destinatario.nome}
         )
 
     return lista_pedidos
 
 def ver_pedidos_recebidos(destinatario_id,db):
 
-    pedidos = db.query(FriendRequest).filter(FriendRequest.remetente_id == destinatario_id).all()
+    pedidos = db.query(FriendRequest).filter(FriendRequest.destinatario_id == destinatario_id).all()
 
     if not pedidos:
         return {"msg":"nenhum pedido pendente"}
@@ -74,8 +80,8 @@ def ver_pedidos_recebidos(destinatario_id,db):
 
     for pedido in pedidos:
         lista_pedidos.append(
-            {"id": pedido.remetente_id},
-            {"nome": pedido.user.nome}
+            {"id": pedido.id,
+            "nome": pedido.remetente.nome}
         )
 
     return lista_pedidos

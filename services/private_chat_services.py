@@ -26,6 +26,8 @@ def mandar_mensagem(conteudo,user_id,db):
     db.add(novo_comentario)
     db.commit()
 
+    return {"msg":"mensagem enviada"}
+
 def ver_mensagens(friend_id,user_id,db):
 
     resposta = verificar_amizade(friend_id.friend_id,user_id,db)
@@ -36,15 +38,18 @@ def ver_mensagens(friend_id,user_id,db):
     
     mensagens = db.query(PrivateChat).filter(or_(and_(PrivateChat.remetente_id == friend_id.friend_id,PrivateChat.destinatario_id == user_id),and_(PrivateChat.destinatario_id == friend_id.friend_id,PrivateChat.remetente_id == user_id))).all()
     
+    if not mensagens:
+        return {"msg":"nenhuma mensagem"}
     lista_mensagens = []
 
     for mensagem in mensagens:
 
         lista_mensagens.append(
-            {"id": mensagem.id},
-            {"remetente": mensagem.remetente.nome},
-            {"destinatario":mensagem.destinatario.nome},
-            {"data_de_envio": mensagem.data_de_envio}
+            {"id": mensagem.id,
+            "remetente": mensagem.remetente.nome,
+            "destinatario":mensagem.destinatario.nome,
+            "conteudo": mensagem.conteudo,
+            "data_de_envio": mensagem.data_de_envio}
         )
 
     return lista_mensagens

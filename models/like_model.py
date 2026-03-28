@@ -10,5 +10,5 @@ class Like(Base):
     global_chat_id = Column(Integer, ForeignKey("global_chat.id", ondelete="CASCADE"))
     user_id = Column(Integer, ForeignKey("usuarios.id"))
 
-    global_chat = relationship("Global_chat", back_populates="like")
+    global_chat = relationship("GlobalChat", back_populates="like")
     user = relationship("Usuario", back_populates="like")

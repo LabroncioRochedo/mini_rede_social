@@ -14,4 +14,4 @@ class Comment(Base):
     data_de_envio = Column(DateTime, default=datetime.datetime.utcnow)
 
     user = relationship("Usuario", back_populates="comment")
-    global_chat = relationship("Global_chat", back_populates="comment")
+    global_chat = relationship("GlobalChat", back_populates="comment")
