@@ -19,7 +19,7 @@ def desfazer_amizade(friend_id,user_id,db):
     amigo = db.query(Friend).filter(or_(and_(Friend.user1_id == friend_id.friend_id,Friend.user2_id == user_id),and_(Friend.user2_id == friend_id.friend_id,Friend.user1_id == user_id))).first()
 
     if not amigo:
-        return HTTPException(status_code=404,detail="amigo nao encontrado")
+        raise HTTPException(status_code=404,detail="amigo nao encontrado")
     
     db.delete(amigo)
     db.commit()

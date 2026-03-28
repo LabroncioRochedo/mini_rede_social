@@ -8,7 +8,7 @@ def enviar_pedido(destinatario_id,remetente_id,db):
     verificar_usuario = db.query(Usuario).filter(Usuario.id == destinatario_id.destinatario_id).first()
 
     if not verificar_usuario:
-        HTTPException(status_code=404,detail="usuario nao encontrado")
+        raise HTTPException(status_code=404,detail="usuario nao encontrado")
     
     novo_pedido = FriendRequest(
         remetente_id=remetente_id,

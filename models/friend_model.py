@@ -1,7 +1,6 @@
-from sqlalchemy import Column,String,Integer,ForeignKey,DateTime
+from sqlalchemy import Column,Integer,ForeignKey
 from database.connection import Base
 from sqlalchemy.orm import relationship
-import datetime
 
 class Friend(Base):
 

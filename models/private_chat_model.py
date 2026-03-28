@@ -13,4 +13,5 @@ class PrivateChat(Base):
     conteudo = Column(String)
     data_de_envio = Column(DateTime, default=datetime.datetime.utcnow)
 
-    user = relationship("Usuario", back_populates="private_chat")
+    remetente = relationship("Usuario",foreign_keys=[remetente_id],back_populates="mensagens_enviadas")
+    destinatario = relationship("Usuario",foreign_keys=[destinatario_id],back_populates="mensagens_recebidas")
