@@ -11,7 +11,11 @@ banco_url = DATABASE_URL
 
 engine = create_engine(banco_url)
 
-SessionLocal = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(
+    autoflush=False,
+    autocommit=False,
+    bind=engine
+)
 
 def get_db():
 

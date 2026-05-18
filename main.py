@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from database.connection import engine,Base
-from routers import auth,global_chat,like,comment,user,friend,friend_request,private_chat
-from models import user_model,private_chat_model,like_model,global_chat_model,friend_model,friend_request_model,comment_model
+from models import comment_model, friend_model, friend_request_model, global_chat_model, like_model, private_chat_model
+from routers import auth, comment, friend, friend_request, global_chat, like, private_chat
+from routers import user
+from models import user_model
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,4 +19,4 @@ app.include_router(friend_request.router)
 app.include_router(private_chat.router)
 
 
-#uvicorn main:app --reload
+#source venv/bin/activate
